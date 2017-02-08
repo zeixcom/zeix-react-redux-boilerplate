@@ -13,6 +13,11 @@ var config = {
   module: {
     loaders: [
       {
+        test: /\.js?$/,
+        loader: 'eslint-loader',
+        include: APP_DIR
+      },
+      {
         test: /\.js?/,
         include: APP_DIR,
         loader: 'babel-loader'
@@ -23,6 +28,10 @@ var config = {
         loader: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
+  },
+  eslint: {
+    failOnWarning: false,
+    failOnError: true
   }
 };
 
