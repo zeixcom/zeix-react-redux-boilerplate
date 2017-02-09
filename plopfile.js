@@ -39,7 +39,17 @@ module.exports = function (plop) {
           type: 'modify',
           path: 'app/components/{{titleCase name}}/reducers.js',
           pattern: /(.NAME.)/g,
-          template: '{{camelCase name}}'
+          template: '{{camelCase name}}Reducer'
+        }, {
+          type: 'modify',
+          path: 'app/reducers.js',
+          pattern: /(\/\/ IMPORT HERE \/\/)/g,
+          template: 'import {{camelCase name}}Reducer from "./components/{{titleCase name}}/reducers.js"\n// IMPORT HERE//'
+        }, {
+          type: 'modify',
+          path: 'app/reducers.js',
+          pattern: /(\/\/ ADD REDUCER HERE \/\/)/g,
+          template: '{{camelCase name}}Reducer,\n// ADD REDUCER HERE //'
         });
       }
 

@@ -1,15 +1,14 @@
 import React from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
 
 import App from './components/App/index';
-import Topic from './components/Topic/index';
 
-import  { Router, Route, IndexRoute } from 'react-router';
+import {Router, Route, IndexRoute} from 'react-router';
 
-import { Provider } from 'react-redux';
-import store, { history } from './store';
+import {Provider} from 'react-redux';
+import store, {history} from './store';
 
-import css from './assets/style.scss';
+import css from './assets/style.scss'; // eslint-disable-line no-unused-vars
 
 const router = () => {
   return(
@@ -21,6 +20,6 @@ const router = () => {
       </Router>
     </Provider>
   );
-}
+};
 
 render(router(), document.getElementById('app'));

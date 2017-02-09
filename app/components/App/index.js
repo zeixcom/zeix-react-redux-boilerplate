@@ -1,13 +1,11 @@
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import Main from '../Main/index';
 
-import * as actionCreators from '../Topic/actions.js';
-
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
 
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
