@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --colors -d --watch --config config/webpack.config.js --content-base build/",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "generate": "plop"
   },
   "author": "",
   "license": "ISC",

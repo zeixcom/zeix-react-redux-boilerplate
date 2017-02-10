@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import App from './components/App/index';
+import App from './containers/App/App';
 
 import {Router, Route, IndexRoute} from 'react-router';
 
@@ -15,7 +15,7 @@ const router = () => {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={App}>
-          <IndexRoute component={Topic}></IndexRoute>
+          <IndexRoute></IndexRoute>
         </Route>
       </Router>
     </Provider>
