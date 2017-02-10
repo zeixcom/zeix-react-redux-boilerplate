@@ -153,7 +153,7 @@ module.exports = function (plop) {
         }, {
           type: 'modify',
           path: 'app/containers/App/App.js',
-          pattern: new RegExp('import * as ' + camelize(data.componentFolderName) + 'Actions.*\n', 'g'),
+          pattern: new RegExp('import \* as ' + camelize(data.componentFolderName) + 'Actions.*\n', 'g'),
           template: ''
         }, {
           type: 'modify',
