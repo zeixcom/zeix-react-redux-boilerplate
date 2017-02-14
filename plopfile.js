@@ -30,16 +30,16 @@ module.exports = function (plop) {
       // Adding necessary react files
       actions.push({
         type: 'add',
-        path: 'app/{{type}}s/{{titleCase name}}/{{titleCase name}}.js',
+        path: 'app/{{type}}s/{{properCase name}}/{{properCase name}}.js',
         templateFile: 'internals/templates/Component.js'
       });
 
       // Change the name in the file
       actions.push({
         type: 'modify',
-        path: 'app/{{type}}s/{{titleCase name}}/{{titleCase name}}.js',
+        path: 'app/{{type}}s/{{properCase name}}/{{properCase name}}.js',
         pattern: /(.NAME.)/g,
-        template: '{{titleCase name}}'
+        template: '{{properCase name}}'
       });
 
       // If it has redux do so much more
@@ -47,17 +47,17 @@ module.exports = function (plop) {
         actions.push( {
           // Adding the empty actions file
           type: 'add',
-          path: 'app/{{type}}s/{{titleCase name}}/actions.js',
+          path: 'app/{{type}}s/{{properCase name}}/actions.js',
           templateFile: 'internals/templates/Action.js'
         }, {
           // Adding the reducers file
           type: 'add',
-          path: 'app/{{type}}s/{{titleCase name}}/reducers.js',
+          path: 'app/{{type}}s/{{properCase name}}/reducers.js',
           templateFile: 'internals/templates/Reducer.js'
         }, {
           // Change the reducer name
           type: 'modify',
-          path: 'app/{{type}}s/{{titleCase name}}/reducers.js',
+          path: 'app/{{type}}s/{{properCase name}}/reducers.js',
           pattern: /(.NAME.)/g,
           template: '{{camelCase name}}Reducer'
         }, {
@@ -65,7 +65,7 @@ module.exports = function (plop) {
           type: 'modify',
           path: 'app/reducers.js',
           pattern: /(\/\/ IMPORT HERE \/\/)/g,
-          template: 'import {{camelCase name}}Reducer from "./{{type}}s/{{titleCase name}}/reducers.js"\n// IMPORT HERE //'
+          template: 'import {{camelCase name}}Reducer from "./{{type}}s/{{properCase name}}/reducers.js"\n// IMPORT HERE //'
         }, {
           // Add Reducer to combine reducer function
           type: 'modify',
@@ -77,7 +77,7 @@ module.exports = function (plop) {
           type: 'modify',
           path: 'app/containers/App/App.js',
           pattern: /(\/\/ IMPORT ACTIONS HERE \/\/)/g,
-          template: 'import * as {{camelCase name}}Actions from "../../{{type}}s/{{titleCase name}}/actions.js"\n// IMPORT ACTIONS HERE //'
+          template: 'import * as {{camelCase name}}Actions from "../../{{type}}s/{{properCase name}}/actions.js"\n// IMPORT ACTIONS HERE //'
         }, {
           // Add the actions to the bindActionCreators
           type: 'modify',
@@ -127,7 +127,7 @@ module.exports = function (plop) {
         function (data) {
           const fs = require('fs');
           const path = `./app/${data.type}s/${data.componentFolderName}/`;
-          const msg = 'We deleted the {{componentFolderName}}!!!!'
+          const msg = 'We deleted the {{componentFolderName}}!!!!';
 
           if (fs.existsSync(path) ) {
             fs.readdirSync(path).forEach(function(file, index) {
@@ -153,7 +153,7 @@ module.exports = function (plop) {
         }, {
           type: 'modify',
           path: 'app/containers/App/App.js',
-          pattern: new RegExp('import \* as ' + camelize(data.componentFolderName) + 'Actions.*\n', 'g'),
+          pattern: new RegExp(`import . as ${camelize(data.componentFolderName)}Actions.*\n`, 'g'),
           template: ''
         }, {
           type: 'modify',
@@ -173,6 +173,99 @@ module.exports = function (plop) {
       return actions;
     }
   })
+
+  plop.setGenerator('Rename React Component', {
+    description: 'Rename a React Component',
+    prompts: [
+      {
+        type: 'list',
+        name: 'type',
+        message: 'What is the type of the component:',
+        choices: [
+          'component',
+          'container'
+        ]
+      },
+      {
+        type: 'list',
+        name: 'componentFolderName',
+        message: 'Which one to rename?',
+        choices: function (response) {
+          return getDirectories(response);
+        }
+      },
+      {
+        type: 'input',
+        name: 'newName',
+        message: 'What should it be called from now on?'
+      }
+    ],
+    actions: (data) => {
+      let actions = [];
+
+      actions.push({
+        type: 'modify',
+        path: 'app/{{type}}s/{{properCase componentFolderName}}/{{properCase componentFolderName}}.js',
+        pattern: new RegExp(titelize(data.componentFolderName), 'g'),
+        template: '{{properCase newName}}'
+      }, {
+        type: 'modify',
+        path: 'app/{{type}}s/{{properCase componentFolderName}}/reducers.js',
+        pattern: new RegExp(camelize(data.componentFolderName) + 'Reducer', 'g'),
+        template: '{{camelCase newName}}Reducer'
+      }, {
+        type: 'modify',
+        path: 'app/reducers.js',
+        pattern: new RegExp(camelize(data.componentFolderName) + 'Reducer', 'g'),
+        template: '{{camelCase newName}}Reducer'
+      }, {
+        type: 'modify',
+        path: 'app/reducers.js',
+        pattern: new RegExp(`./${data.type}s/${titelize(data.componentFolderName)}/`, 'g'),
+        template: './{{type}}s/{{properCase newName}}/'
+      }, {
+        type: 'modify',
+        path: 'app/containers/App/App.js',
+        pattern: new RegExp(`../../${data.type}s/${titelize(data.componentFolderName)}/`, 'g'),
+        template: '../../{{type}}s/{{properCase newName}}/'
+      }, {
+        type: 'modify',
+        path: 'app/containers/App/App.js',
+        pattern: new RegExp(`${camelize(data.componentFolderName)}Actions`, 'g'),
+        template: '{{camelCase newName}}Actions'
+      }, {
+        type: 'modify',
+        path: 'app/containers/App/App.js',
+        pattern: new RegExp(`${camelize(data.componentFolderName)}Data: state.${camelize(data.componentFolderName)}Reducer`),
+        template: '{{camelCase newName}}Data: state.{{camelCase newName}}Reducer'
+      }, function (data) {
+        const fs = require('fs'),
+            filePath = `./app/${data.type}s/${titelize(data.componentFolderName)}/`,
+            oldFileName = `${titelize(data.componentFolderName)}.js`,
+            newFileName = `${titelize(data.newName)}.js`;
+
+
+        fs.rename(filePath + oldFileName, filePath + newFileName, function(err) {
+          if (err) console.log('ERROR: ' + err);
+        });
+
+        return plop.renderString('Renamed the main file {{properCase newName}}.js');
+      }, function (data) {
+        const fs = require('fs'),
+            filePath = `./app/${data.type}s/`,
+            oldDirName = `${titelize(data.componentFolderName)}`,
+            newDirName = `${titelize(data.newName)}`;
+
+        fs.rename(filePath + oldDirName, filePath + newDirName, function (err) {
+          if (err) console.log('ERROR: ' + err);
+        });
+
+        return plop.renderString('Renamed the directory {{properCase newName}}');
+      });
+
+      return actions;
+    }
+  });
 }
 
 function getDirectories(response) {
@@ -188,4 +281,10 @@ function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
     return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
   }).replace(/\s+/g, '');
+}
+
+function titelize(str) {
+  str = camelize(str);
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
