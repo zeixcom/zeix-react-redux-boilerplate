@@ -1,28 +1,24 @@
-import {createStore, compose} from 'redux';
-import {syncHistoryWithStore} from 'react-router-redux';
-import {browserHistory} from 'react-router';
+import {createStore, applyMiddleware, compose} from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import {defaultState} from './defaultState';
+// import the root saga
+import rootSaga from './sagas/root';
 
-// import the router reducer
+// import the root reducer
 import rootReducer from './reducers';
 
+export default function createStoreWithMiddleware(history, data) {
+  const reduxRouterMiddleware = routerMiddleware(history);
+  const sagaMiddleware = createSagaMiddleware();
+  const middleware = [reduxRouterMiddleware, sagaMiddleware];
 
-const enhancers = compose(
-    window.__REDUX_DEVTOOLS_EXTENSION__ ?
-        window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
-);
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      || compose;
+  const store = createStore(rootReducer, data, composeEnhancers(
+      applyMiddleware(...middleware)
+  ));
 
-const store = createStore(rootReducer, defaultState, enhancers);
+  sagaMiddleware.run(rootSaga);
 
-export const history = syncHistoryWithStore(browserHistory, store);
-
-if (module.hot) {
-  module.hot.accept('./**/**/reducer.js/', () => {
-    const nextRootReducer = require('./reducers.js').default;
-
-    store.replaceReducer(nextRootReducer);
-  });
+  return store;
 }
-
-export default store;
