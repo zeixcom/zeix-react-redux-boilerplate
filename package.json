@@ -1,7 +1,7 @@
 {
   "name": "zeix-react-redux-boilerplate",
-  "version": "0.0.6",
-  "description": "A React Redux Boilerplate for zeix future development projects",
+  "version": "0.1.0",
+  "description": "A React Redux Boilerplate from your friends @zeix",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --progress --colors -d --watch --config config/webpack.config.js --content-base build/",
@@ -13,7 +13,8 @@
     "make-the-web-great-again": "bin/create-zeix-app.js"
   },
   "author": "Marcel Bührig <marcel.buehrig@zeix.com>",
-  "license": "ISC",
+  "license": "MIT",
+  "url": "https//github.com/zeix.com/zeix-react-redux-boilerplate",
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
