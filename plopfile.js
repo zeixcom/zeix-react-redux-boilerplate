@@ -1,4 +1,5 @@
 module.exports = function (plop) {
+  'use strict';
 
   // Component and Container Generator
   plop.setGenerator('Add React Component', {

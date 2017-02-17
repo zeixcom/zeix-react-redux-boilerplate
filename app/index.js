@@ -8,7 +8,7 @@ import {syncHistoryWithStore} from 'react-router-redux';
 
 
 import {Provider} from 'react-redux';
-import createStoreWithMiddleware, from './store';
+import createStoreWithMiddleware from './store';
 import {defaultState} from './defaultState';
 
 const store = createStoreWithMiddleware(browserHistory, defaultState);

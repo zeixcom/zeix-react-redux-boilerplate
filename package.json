@@ -1,16 +1,18 @@
 {
   "name": "zeix-react-redux-boilerplate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A React Redux Boilerplate from your friends @zeix",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --progress --colors -d --watch --config config/webpack.config.js --content-base build/",
     "dev": "webpack-dev-server --progress --colors -d --watch --config config/webpack.config.js --content-base build/",
     "build": "webpack -p",
     "generate": "plop",
     "create-zeix-app": ""
   },
   "bin": {
-    "make-the-web-great-again": "bin/create-zeix-app.js"
+    "make-the-web-great-again": "bin/create-zeix-app.js",
+    "zeix-rrbp": "bin/create-zeix-app.js"
   },
   "author": "Marcel Bührig <marcel.buehrig@zeix.com>",
   "license": "MIT",
@@ -36,13 +38,13 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "ncp": "^2.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
-    "redux-saga": "^0.14.3",
-    "ncp": "^2.0.0"
+    "redux-saga": "^0.14.3"
   }
 }
