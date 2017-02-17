@@ -1,6 +1,6 @@
 {
   "name": "zeix-react-redux-boilerplate",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "A React Redux Boilerplate for zeix future development projects",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "create-zeix-app": ""
   },
   "bin": {
-    "create-zeix-app": "bin/create-zeix-app.js"
+    "make-the-web-great-again": "bin/create-zeix-app.js"
   },
   "author": "Marcel Bührig <marcel.buehrig@zeix.com>",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "eslint-config-google": "^0.7.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-react": "^6.9.0",
+    "ncp": "^2.0.0",
     "node-sass": "^4.5.0",
     "plop": "^1.7.4",
     "sass-loader": "^5.0.1",
