@@ -1,0 +1,14 @@
+*~
+.DS_Store
+npm
+encodings.xml
+gr-ne-stadt-z-rich-mapsie-anpassung.iml
+misc.xml
+modules.xml
+vcs.xml
+workspace.xml
+profiles_settings.xml
+.idea
+npm-debug.log
+patch.diff
+node_modules
