@@ -1,6 +1,6 @@
 {
   "name": "zeix-react-redux-boilerplate",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "A React Redux Boilerplate from your friends @zeix",
   "main": "index.js",
   "scripts": {
