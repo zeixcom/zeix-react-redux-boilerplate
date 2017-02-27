@@ -1,5 +1,6 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { routerMiddleware } from 'react-router-redux';
 
 // import the root saga
 import rootSaga from './sagas/root';

@@ -1,5 +1,5 @@
 import work.NAME. from '../workers/work.NAME.js';
-import * as types from '../../const/types.js';
+// import * as types from '../../const/types.js';
 import { takeEvery } from 'redux-saga';
 
 export default function* watch.NAME.() {
