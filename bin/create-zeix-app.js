@@ -10,7 +10,7 @@ var pathBoilerplate, newProjectPath = null;
 var isWindows = /^win/.test(process.platform);
 
 if (isWindows) {
-  pathBoilerplate = path.join(process.env.APPDATA, 'npm/node_modules/zeix-react-redux-boilerplate');
+  pathBoilerplate = path.join(process.env.APPDATA, 'npm/node_modules/zeix-react-redux-boilerplate/boilerplate');
   newProjectPath = path.join(process.cwd(), newFolder);
 } else {
   pathBoilerplate = path.join(nodePath, '../..', 'lib/node_modules/zeix-react-redux-boilerplate/boilerplate');
