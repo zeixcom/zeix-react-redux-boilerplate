@@ -5,6 +5,7 @@ const ncp = require('ncp').ncp;
 const fs = require('fs');
 const nodePath = process.argv[0];
 const newFolder = process.argv[2];
+var isWindows = /^win/.test(process.platform);
 const pathBoilerplate = path.join(nodePath, '../..', 'lib/node_modules/zeix-react-redux-boilerplate/boilerplate');
 const newProjectPath = path.join(process.env.PWD, newFolder);
 
